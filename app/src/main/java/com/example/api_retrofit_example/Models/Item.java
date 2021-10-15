@@ -1,23 +1,17 @@
 package com.example.api_retrofit_example.Models;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Item {
     @SerializedName("product_ID")
-    @Expose
     private int product_ID;
     @SerializedName("product_image")
-    @Expose
     private int product_image;
     @SerializedName("product_name")
-    @Expose
     private String product_name;
     @SerializedName("product_price")
-    @Expose
     private double product_price;
     @SerializedName("product_desc")
-    @Expose
     private String product_desc;
 
     public Item(int product_ID, int product_image, String product_name, double product_price, String product_desc) {
