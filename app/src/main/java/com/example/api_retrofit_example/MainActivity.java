@@ -51,5 +51,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(itemAdapter);
+        itemAdapter.setListener(position -> Toast.makeText(MainActivity.this, itemList.get(position).getProduct_name(), Toast.LENGTH_SHORT).show());
     }
 }

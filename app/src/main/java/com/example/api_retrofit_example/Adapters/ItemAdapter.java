@@ -55,7 +55,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                 .load(itemList.get(position).getProduct_image())
                 .apply(options)
                 .into(holder.product_image);
-        holder.relativeLL.setOnClickListener(view -> Toast.makeText(view.getContext(), "click on item: " + itemList.get(position).toString(), Toast.LENGTH_LONG).show());
+        //holder.relativeLL.setOnClickListener(view -> Toast.makeText(view.getContext(), "click on item: " + itemList.get(position).toString(), Toast.LENGTH_LONG).show());
+        holder.relativeLL.setOnClickListener(view -> {
+            //Calling the interface method, passing the subscript.
+            listener.onItemClick(position);
+        });
     }
 
     @Override
@@ -63,7 +67,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         return itemList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView product_image;
         public TextView product_name, product_desc, product_price;
         public RelativeLayout relativeLL;
@@ -76,5 +80,19 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             this.product_price = itemView.findViewById(R.id.product_price);
             this.relativeLL = itemView.findViewById(R.id.relativeLL);
         }
+    }
+
+    //Declarative interface
+    private ItemClickListener listener;
+
+    //set method
+    public void setListener(ItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    //Defining interface
+    public interface ItemClickListener {
+        //Achieve the click method, passing the subscript.
+        void onItemClick(int position);
     }
 }
