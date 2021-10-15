@@ -14,7 +14,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClientInstance {
 
     private static Retrofit retrofit;
-    private static final String BASE_URL = "https://mocki.io/v1/278c43a9-aa71-463e-8b05-7060416c6fd8";
+    private static final String BASE_URL = "https://mocki.io";
+    //Full URL : https://mocki.io/v1/63a087f0-b6cc-41f4-810b-e600ca41afda
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {

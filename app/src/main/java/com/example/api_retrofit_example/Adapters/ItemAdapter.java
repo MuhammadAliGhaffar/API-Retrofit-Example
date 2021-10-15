@@ -1,5 +1,7 @@
 package com.example.api_retrofit_example.Adapters;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.api_retrofit_example.Models.Item;
 import com.example.api_retrofit_example.R;
 
@@ -18,9 +22,11 @@ import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
+    private Context mContext;
     private List<Item> itemList;
 
-    public ItemAdapter(List<Item> itemList) {
+    public ItemAdapter(Context context, List<Item> itemList) {
+        this.mContext = context;
         this.itemList = itemList;
     }
 
@@ -37,8 +43,18 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ItemAdapter.ViewHolder holder, int position) {
         holder.product_name.setText(itemList.get(position).getProduct_name());
         holder.product_desc.setText(itemList.get(position).getProduct_desc());
-        holder.product_price.setText("$"+String.valueOf(itemList.get(position).getProduct_price()));
-        holder.product_image.setImageResource(itemList.get(position).getProduct_image());
+        holder.product_price.setText("$" + String.valueOf(itemList.get(position).getProduct_price()));
+        //holder.relativeLL.setBackgroundColor(Color.parseColor(itemList.get(position).getProduct_color()));
+        //holder.product_image.setImageResource(itemList.get(position).getProduct_image());
+        RequestOptions options = new RequestOptions()
+                .placeholder(R.drawable.loading)//refresh image
+                .centerInside()
+                .centerCrop()
+                .error(R.drawable.error);//cancel image
+        Glide.with(mContext)
+                .load(itemList.get(position).getProduct_image())
+                .apply(options)
+                .into(holder.product_image);
         holder.relativeLL.setOnClickListener(view -> Toast.makeText(view.getContext(), "click on item: " + itemList.get(position).toString(), Toast.LENGTH_LONG).show());
     }
 
